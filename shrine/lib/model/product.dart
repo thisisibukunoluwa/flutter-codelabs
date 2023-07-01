@@ -1,4 +1,4 @@
-enum Category { all, accesories, clothing, home }
+enum Category { all, accessories, clothing, home }
 
 class Product {
   const Product(
