@@ -8,7 +8,6 @@ const kShrinePink300 = Color(0xFFFBB8AC);
 
 const kShrinePink400 = Color(0xFFEAA4A4);
 
-
 const kShrineBrown900 = Color(0xFF442B2D);
 
 const kShrineErrorRed = Color(0xFFC5032B);
@@ -16,3 +15,7 @@ const kShrineErrorRed = Color(0xFFC5032B);
 const kShrineBackgroundWhite = Color(0xfffeffbfa);
 
 const kShrineSurfaceWhite = Colors.white;
+
+const kShrinePurple = Color(0xFF5D1049);
+
+
