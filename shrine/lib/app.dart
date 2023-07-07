@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:shrine/category_menu_page.dart';
 import 'package:shrine/colors.dart';
 import 'package:shrine/home.dart';
 import 'package:shrine/login.dart';
+import 'package:shrine/supplemental/cut_corners_border.dart';
+import 'backdrop.dart';
+import 'model/product.dart';
 
 final ThemeData _kShrineTheme = _buildShrineTheme();
 
 ThemeData _buildShrineTheme() {
   final ThemeData base = ThemeData.light(useMaterial3: true);
   return base.copyWith(
-      colorScheme: base.colorScheme.copyWith(
-    primary: kShrinePink100,
-    onPrimary: kShrineBrown900,
-    secondary: kShrineBrown900,
-    error: kShrineErrorRed,
-  ),
-  textTheme: _buildShrineTextTheme(base.textTheme),
-  textSelectionTheme: const TextSelectionThemeData(
-    selectionColor: kShrinePink100
-  ),
-  inputDecorationTheme: InputDecorationTheme(
-    border: OutlineInputBorder(),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(width:2.0,color: kShrineBrown900)
+    colorScheme: base.colorScheme.copyWith(
+      primary: kShrinePink100,
+      onPrimary: kShrineBrown900,
+      secondary: kShrineBrown900,
+      error: kShrineErrorRed,
     ),
-    floatingLabelStyle: TextStyle(
-      color: kShrineBrown900
-    )
-  ),
-);
+    textTheme: _buildShrineTextTheme(base.textTheme),
+    textSelectionTheme:
+        const TextSelectionThemeData(selectionColor: kShrinePink100),
+    appBarTheme: const AppBarTheme(
+        foregroundColor: kShrineBrown900, backgroundColor: kShrinePink100),
+    inputDecorationTheme: const InputDecorationTheme(
+        border: CutCornersBorder(),
+        focusedBorder: CutCornersBorder(
+            borderSide: BorderSide(width: 2.0, color: kShrineBrown900)),
+        floatingLabelStyle: TextStyle(color: kShrineBrown900)),
+  );
 }
 
 // this takes a text theme and changes how headlines,titles and captions look
@@ -50,8 +51,21 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
           bodyColor: kShrineBrown900);
 }
 
-class ShrineApp extends StatelessWidget {
+class ShrineApp extends StatefulWidget {
   const ShrineApp({super.key});
+
+  @override
+  State<ShrineApp> createState() => _ShrineAppState();
+}
+
+class _ShrineAppState extends State<ShrineApp> {
+  Category _currentCategory = Category.all;
+
+  void _onCategoryTap(Category category) {
+    setState(() {
+      _currentCategory = category;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +75,13 @@ class ShrineApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (BuildContext context) => const LoginPage(),
-        '/': (BuildContext context) => const HomePage()
+        '/': (BuildContext context) => Backdrop(
+            currentCategory: _currentCategory,
+            frontLayer: HomePage(category: _currentCategory,),
+            backLayer: CategoryMenuPage(
+                currentCategory: _currentCategory, onCategoryTap: _onCategoryTap),
+            frontTitle: Text('SHRINE'),
+            backTitle: Text(' MENU'))
       },
       theme: _kShrineTheme,
     );

@@ -31,3 +31,13 @@ We called copyWith() on the default light ThemeData, and then passed in some cus
 
 
 <https://stackoverflow.com/questions/51907159/default-values-of-an-optional-parameter-must-be-constant>
+
+
+Notice we mark certain properties required. This is a best practice for properties in the constructor that have no default value and cannot be null and therefore should not be forgotten.
+
+
+LayoutBuilder is a special widget whose builder callback provides size constraints.
+
+The widget tree performs layout by traversing towards the leaves. Constraints are passed down the tree but sizes usually aren't calculated until the leaf returns its size based on the constraints. If a leaf needed to know its parent's size, it couldn't since it's not yet calculated.
+
+LayoutBuilder is used when a widget must know its parent widget's size in order to lay itself out (and the parent size does not depend on the child.) LayoutBuilder takes a function that returns a Widget.

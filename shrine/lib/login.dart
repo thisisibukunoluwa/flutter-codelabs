@@ -61,20 +61,26 @@ class _LoginPageState extends State<LoginPage> {
                       _passwordController.clear();
                     },
                     style: TextButton.styleFrom(
-                        foregroundColor:
-                            Theme.of(context).colorScheme.secondary),
+                        foregroundColor: kShrineBrown900,
+                        shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7.0))
+                        )
+                        ),
                     child: const Text('Cancel')),
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
                     child: const Text(
                       'Next',
                     ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: kShrineBrown900,
                       backgroundColor: kShrinePink100,
-                      elevation: 8.0
+                      elevation: 8.0,
+                      shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(7.0))
+                      )
                      ))
               ],
             )
