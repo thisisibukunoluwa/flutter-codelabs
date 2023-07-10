@@ -17,3 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 
 <https://codelabs.developers.google.com/codelabs/flutter-app-testing#2>
+
+What is a unit test? A unit test verifies that every individual unit of software, be it a function, object or a widget, performs its intended task correctly.
+
+All the test files in a Flutter app, except for integration tests, are placed in the test directory.

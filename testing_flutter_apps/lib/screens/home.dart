@@ -48,18 +48,18 @@ class ItemTile extends StatelessWidget {
                 backgroundColor:
                     Colors.primaries[itemNo % Colors.primaries.length]),
             title: Text(
-              'item $itemNo',
+              'Item $itemNo',
               key: Key('text_$itemNo'),
             ),
             trailing: IconButton(
               key: Key('icon_$itemNo'),
-              icon: favoritesList.items.contains(itemNo)
-                  ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+            icon: favoritesList.items.contains(itemNo) ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
               onPressed: () {
                 !favoritesList.items.contains(itemNo)
-                    ? favoritesList.items.add(itemNo)
+                   ? favoritesList.items.add(itemNo)
                     : favoritesList.items.remove(itemNo);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
                     content: Text(favoritesList.items.contains(itemNo) ? 'Added to Favorites' : 'Removed from favorites'),
                     duration: Duration(seconds: 1),));
               },
