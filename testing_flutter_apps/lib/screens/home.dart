@@ -60,7 +60,7 @@ class ItemTile extends StatelessWidget {
                     : favoritesList.items.remove(itemNo);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(favoritesList.items.contains(itemNo) ? 'Added to Favorites' : 'Removed from favorites'),
+                    content: Text(favoritesList.items.contains(itemNo) ? 'Added to favorites' : 'Removed from favorites'),
                     duration: Duration(seconds: 1),));
               },
             )));
