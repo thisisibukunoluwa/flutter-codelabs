@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_in_flutter/src/navigation_controls.dart';
+import 'package:webview_in_flutter/src/web_view_stack.dart';
+import 'src/menu.dart';
 
 void main() {
-  runApp(
-     MaterialApp(
-      theme:ThemeData(useMaterial3: true),
-      home:WebViewApp()
-    )
-  );
+  runApp(MaterialApp(theme: ThemeData(useMaterial3: true), home: WebViewApp()));
 }
 
 class WebViewApp extends StatefulWidget {
@@ -18,27 +16,26 @@ class WebViewApp extends StatefulWidget {
 }
 
 class _WebViewAppState extends State<WebViewApp> {
-    late final WebViewController controller;
+  late final WebViewController controller;
 
-    @override
-    void initState(){
-      super.initState();
-      controller = WebViewController()
-        ..loadRequest(
-          Uri.parse('https://flutter.dev')
-        );
-    }
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..loadRequest(Uri.parse('https://flutter.dev'));
+  }
 
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
-          title:const Text('Flutter WebView')
+          title: const Text('Flutter WebView'),
+          actions: [
+            NavigationControls(controller: controller),
+            Menu(controller: controller)
+          ],
         ),
-        body: WebViewWidget(
-          controller: controller,
-        ),
+        body: const WebViewStack()
       );
-    }
-
+  }
 }
