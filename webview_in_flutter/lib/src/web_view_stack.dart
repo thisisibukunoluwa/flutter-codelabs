@@ -51,12 +51,16 @@ class _WebViewStackState extends State<WebViewStack> {
     controller = WebViewController();
 
     await controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-    
-    await controller.addJavaScriptChannel('SnackBar',
+
+    await controller.addJavaScriptChannel(
+      'SnackBar',
         onMessageReceived: (message) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(message.message)));
-    });
+          ScaffoldMessenger.of(context)
+          .showSnackBar(
+            SnackBar(content: Text(message.message))
+      );
+    }
+  );
     await controller.setNavigationDelegate(_navigationDelegate);
 
     await controller.loadRequest(uri);
