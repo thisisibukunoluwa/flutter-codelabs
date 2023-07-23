@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewStack extends StatefulWidget {
-  const WebViewStack({super.key});
+  const WebViewStack({required this.controller, super.key});
+
+  final WebViewController controller;
 
   @override
   State<WebViewStack> createState() => _WebViewStackState();
@@ -11,8 +13,9 @@ class WebViewStack extends StatefulWidget {
 class _WebViewStackState extends State<WebViewStack> {
   var loadingPercentage = 0;
   Uri uri = Uri.parse('https://flutter.dev');
+
   late final Future<WebViewController> _initWebViewFuture;
-  late final WebViewController controller;
+
   late final NavigationDelegate _navigationDelegate;
 
   @override
@@ -48,19 +51,15 @@ class _WebViewStackState extends State<WebViewStack> {
         return NavigationDecision.navigate;
       },
     );
-    controller = WebViewController();
+    WebViewController controller =  widget.controller;
 
     await controller.setJavaScriptMode(JavaScriptMode.unrestricted);
 
-    await controller.addJavaScriptChannel(
-      'SnackBar',
+    await controller.addJavaScriptChannel('SnackBar',
         onMessageReceived: (message) {
-          ScaffoldMessenger.of(context)
-          .showSnackBar(
-            SnackBar(content: Text(message.message))
-      );
-    }
-  );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(message.message)));
+    });
     await controller.setNavigationDelegate(_navigationDelegate);
 
     await controller.loadRequest(uri);
@@ -71,30 +70,23 @@ class _WebViewStackState extends State<WebViewStack> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(),
-      body: FutureBuilder<WebViewController>(
-        future: _initWebViewFuture,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return WebViewWidget(controller: controller);
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Webview Initialization error'));
-          } else {
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingPercentage / 100.0,
-              ),
-            );
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await controller.clearCache();
-          await controller.loadRequest(uri);
-        },
-       child:Icon(Icons.refresh)
-      ),
-    );
-  }
+        // appBar: AppBar(),
+        body: FutureBuilder<WebViewController>(
+      future: _initWebViewFuture,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return WebViewWidget(controller: widget.controller);
+        } else if (snapshot.hasError) {
+          return const Center(child: Text('Webview Initialization error'));
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingPercentage / 100.0,
+            ),
+          );
+        }
+      },
+    )
+ );
+}
 }
