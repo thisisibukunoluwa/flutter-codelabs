@@ -4,7 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 class NavigationControls extends StatelessWidget {
    NavigationControls({required this.controller, super.key});
 
-  late final WebViewController controller;
+   final WebViewController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +36,12 @@ class NavigationControls extends StatelessWidget {
               }
               return;
             }),
-        // IconButton(
-        //   icon: const Icon(Icons.replay),
-
-        //   onPressed: () {
-        //     final messenger = ScaffoldMessenger.of(context);
-        //     controller.reload();
-        //     messenger.showSnackBar(
-        //         const SnackBar(content: Text('Reloading.....')));
-        //   },
-        // ),
+        IconButton(
+          icon: const Icon(Icons.replay),
+          onPressed: () {
+            controller.reload();
+          },
+        ),
       ],
     );
   }
