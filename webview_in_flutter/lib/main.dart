@@ -4,6 +4,9 @@ import 'package:webview_in_flutter/src/navigation_controls.dart';
 import 'package:webview_in_flutter/src/web_view_stack.dart';
 import 'src/menu.dart';
 
+//https://codelabs.developers.google.com/codelabs/flutter-webview
+
+
 void main() {
   runApp(MaterialApp(theme: ThemeData(useMaterial3: true), home: WebViewApp()));
 }
@@ -22,7 +25,9 @@ class _WebViewAppState extends State<WebViewApp> {
   void initState() {
     super.initState();
     controller = WebViewController()
-      ..loadRequest(Uri.parse('https://flutter.dev'));
+      ..loadRequest(
+        Uri.parse('https://flutter.dev')
+    );
   }
 
   @override
@@ -35,7 +40,7 @@ class _WebViewAppState extends State<WebViewApp> {
             Menu(controller: controller)
           ],
         ),
-        body: const WebViewStack()
+        body: WebViewStack(controller:controller)
       );
   }
 }
